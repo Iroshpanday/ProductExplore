@@ -29,7 +29,7 @@ export default async function ProductDetailPage({
   return (
     <div className="p-6 max-w-3xl mx-auto">
       <div className="flex flex-col md:flex-row gap-6">
-        <img
+        <Image
           src={product.thumbnail}
           alt={product.title}
           width={300}
