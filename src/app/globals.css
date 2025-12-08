@@ -1,4 +1,7 @@
 @import "tailwindcss";
+/* styles/globals.css */
+
+
 
 :root {
   --background: #ffffff;
@@ -24,3 +27,44 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+/* styles/globals.css */
+
+/* Set background color for landing page */
+body {
+  background-color: #f8fafc; /* Light background */
+}
+
+/* For the navbar */
+nav {
+  background-color: #4C51BF; /* Deep Indigo background */
+}
+
+/* For the buttons and category dropdown */
+input, select {
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover effects */
+input:hover, select:hover {
+  background-color: #63B3ED; /* Light blue accent */
+  transition: 0.3s ease;
+}
+
+a {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Responsive navbar (Hamburger) */
+@media (max-width: 768px) {
+  nav {
+    padding: 10px 20px;
+  }
+
+  .flex {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+

@@ -1,6 +1,5 @@
 "use client";
 
-
 import {
   useGetCategoriesQuery,
   useGetProductsQuery,
@@ -10,6 +9,7 @@ import {
   setSearch,
   setCategory,
   setPage,
+  setSortBy,
 } from "@/store/products/productsSlice";
 import type { ProductsResponse } from "@/lib/types/product";
 import Image from "next/image";
@@ -20,20 +20,17 @@ interface ProductsPageProps {
 
 export default function ProductsPage({ initialData }: ProductsPageProps) {
   const dispatch = useAppDispatch();
-  const { search, category, page } = useAppSelector((s) => s.products);
+  const { search, category, page, sortBy } = useAppSelector((s) => s.products);
 
   const limit = 10;
   const skip = (page - 1) * limit;
 
-  const {
-    data: productsData,
-    isLoading,
-    isFetching,
-    isError,
-  } = useGetProductsQuery({
+  const { data: productsData, isLoading, isFetching, isError } = useGetProductsQuery({
     search,
+    category,
     limit,
     skip,
+    sortBy, // Pass sortBy here
   });
 
   const { data: categories } = useGetCategoriesQuery() as {
@@ -52,19 +49,39 @@ export default function ProductsPage({ initialData }: ProductsPageProps) {
         onChange={(e) => dispatch(setSearch(e.target.value))}
       />
 
-      {/* Category filter */}
+      {/* Sorting */}
       <select
         className="border p-2 rounded"
-        value={category}
-        onChange={(e) => dispatch(setCategory(e.target.value))}
+        value={sortBy}
+        onChange={(e) => dispatch(setSortBy(e.target.value as "priceAsc" | "priceDesc" | "rating" | "popularity" | "none"))}
       >
-        <option value="all">All</option>
-        {categories?.map((cat) => (
-          <option key={cat.slug} value={cat.slug}>
-            {cat.name}
-          </option>
-        ))}
+        <option value="none">Sort by</option>
+        <option value="priceAsc">Price (Low to High)</option>
+        <option value="priceDesc">Price (High to Low)</option>
+        <option value="rating">Rating</option>
+        <option value="popularity">Popularity</option>
       </select>
+
+      {/* Category filter */}
+      <select
+  className="border p-2 rounded"
+  value={category}
+  onChange={(e) => {
+    // Log the selected category before dispatching
+    console.log("Selected category:", e.target.value);  // <-- Log the selected category here
+    dispatch(setCategory(e.target.value));  // Dispatch the action to update Redux state
+  }}
+>
+  <option value="all">All</option>
+  {categories?.map((cat) => (
+    <option key={cat.slug} value={cat.slug}>
+      {cat.name}
+    </option>
+  ))}
+</select>
+
+
+
 
       {/* Product list */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -75,10 +92,7 @@ export default function ProductsPage({ initialData }: ProductsPageProps) {
         )}
         {isLoading || isFetching
           ? Array.from({ length: limit }).map((_, idx) => (
-              <div
-                key={idx}
-                className="border rounded-lg shadow p-4 animate-pulse"
-              >
+              <div key={idx} className="border rounded-lg shadow p-4 animate-pulse">
                 <div className="w-full h-40 bg-gray-300 rounded mb-2" />
                 <div className="h-6 bg-gray-300 rounded mb-1" />
                 <div className="h-4 bg-gray-300 rounded mb-1" />
@@ -98,10 +112,9 @@ export default function ProductsPage({ initialData }: ProductsPageProps) {
                   height={300}
                   className="w-full h-40 object-cover rounded"
                 />
-
-                <h2 className="font-semibold mt-2">{product.title}</h2>
+                <h2 className="font-semibold text-gray-600 mt-2">{product.title}</h2>
                 <p className="text-gray-600 text-sm">{product.category}</p>
-                <p className="text-lg font-bold mt-1">${product.price}</p>
+                <p className="text-lg font-bold mt-1 text-gray-600">${product.price}</p>
               </a>
             ))}
       </div>
