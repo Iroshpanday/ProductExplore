@@ -24,7 +24,7 @@ export default function Footer() {
             </p>
             <div className="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
               <MapPin className="h-4 w-4" />
-              <span className="text-sm">Pātan, Bagmati Province, Nepal</span>
+              <span className="text-sm">Kapan, Bagmati Province, Nepal</span>
             </div>
           </div>
 
@@ -86,7 +86,7 @@ export default function Footer() {
         {/* Social Links & Copyright */}
         <div className="pt-8 border-t border-gray-200 dark:border-gray-800 flex flex-col md:flex-row items-center justify-between">
           <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 md:mb-0 flex items-center">
-            Made with <Heart className="h-4 w-4 mx-1 text-red-500 fill-red-500" /> by a passionate developer
+            Made with <Heart className="h-4 w-4 mx-1 text-red-500 fill-red-500" /> by a passionate developer Irosh
           </p>
           
           <div className="flex items-center space-x-4">
