@@ -48,10 +48,10 @@ A fully-featured e-commerce platform built with Next.js 14, Redux Toolkit, and T
 
 \`\`\`bash
 # 1. Clone the repository
-git clone https://github.com/Iroshpanday/product-explore.git
+git clone https://github.com/Iroshpanday/ProductExplore.git
 
 # 2. Navigate to project directory
-cd product-explore
+cd productexplore
 
 # 3. Install dependencies
 npm install
